@@ -4,7 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 
 /** @type {import('rollup').RollupOptions}  */
 const options = {
-    input: 'src/index.ts',
+    input: 'src/cli.ts',
     output: [
         {
             dir: 'dist',
