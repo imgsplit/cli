@@ -117,20 +117,20 @@ const spinner = ora({
     spinner.start('splitting');
 
     options.src = options.input;
-    const result = await imgsplit(options as ImgSplitOption);
+    const splitResult = await imgsplit(options as ImgSplitOption);
 
     spinner.text = 'saving';
     spinner.render();
 
     await new Promise(res => setTimeout(res, 100));
 
-    const r = await saveFile(options.ouput, result);
-    if (r.success) {
+    const saveResult = await saveFile(options.ouput, splitResult);
+    if (saveResult.success) {
         spinner.succeed(`success!`)
         console.log(`${path.join(path.normalize(process.cwd()), options.ouput)}`);
     } else {
         spinner.fail('failed!')
-        console.log(`${r.msg}`);
+        console.log(`${saveResult.msg}`);
     }
 
 
