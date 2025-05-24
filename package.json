@@ -26,9 +26,8 @@
     "publish-ci": "yarn publish",
     "test": "rimraf ./test/.out && vitest run"
   },
-  "main": "./dist/index.js",
   "bin": {
-    "imgsplit": "./dist/index.js"
+    "imgsplit": "./dist/cli.js"
   },
   "files": [
     "dist/*"
