@@ -1,0 +1,7 @@
+.idea
+.vscode
+lib
+dist
+.out
+*.tgz
+node_modules
