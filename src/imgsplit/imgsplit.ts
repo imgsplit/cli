@@ -1,9 +1,8 @@
-#!/usr/bin/env node
 import yargs from 'yargs';
 import {imgsplit, ItemOption, ImgSplitOption} from "@imgsplit/core";
 import {hideBin} from "yargs/helpers";
 import path from 'upath';
-import {existsSync} from "node:fs";
+import {existsSync} from "fs";
 import {saveFile} from "../utils/fileutil";
 import ora from 'ora';
 import {welcome} from "../utils/logutil";
@@ -25,6 +24,7 @@ const parser = yargs()
         h: {type: 'number', alias: 'height', description: 'by height'},
         c: {type: 'number', alias: 'count', description: 'by count'},
         m: {type: 'array', alias: 'items'},
+        'disable-display': {type: 'boolean'},
     })
     .demandCommand(1);
 
@@ -33,9 +33,8 @@ const spinner = ora({
 });
 
 
-(async () => {
-    welcome();
-    const arg = await parser.parse(hideBin(process.argv));
+export async function main(args: string | string[]): Promise<boolean> {
+    const arg = await parser.parse(args);
 
     let options: SplitOption = {};
 
@@ -79,6 +78,8 @@ const spinner = ora({
         }
 
     }
+    if (!arg.disableDisplay)
+        welcome();
 
     if (arg.h) {
         options.height = arg.h;
@@ -92,16 +93,18 @@ const spinner = ora({
     if (options.input) {
         options.input = path.normalize(options.input);
     } else {
-        spinner.fail('input file is empty!');
-        return;
+        if (!arg.disableDisplay)
+            spinner.fail('input file is empty!');
+        return false;
     }
-
-    console.log(`Options:`)
-    console.log(`${JSON.stringify(options, null, 2)}`);
-
+    if (!arg.disableDisplay) {
+        console.log(`Options:`)
+        console.log(`${JSON.stringify(options, null, 2)}`);
+    }
     if (!existsSync(options.input)) {
-        spinner.fail(`file not exists! ---> ${options.input}`);
-        return;
+        if (!arg.disableDisplay)
+            spinner.fail(`file not exists! ---> ${options.input}`);
+        return false;
     }
 
 
@@ -114,24 +117,30 @@ const spinner = ora({
         options.ouput = path.joinSafe(path.dirname(options.input), `${inputFileName}-splitted/`)
     }
 
-    spinner.start('splitting');
+    if (!arg.disableDisplay)
+        spinner.start('splitting');
 
     options.src = options.input;
     const splitResult = await imgsplit(options as ImgSplitOption);
 
-    spinner.text = 'saving';
-    spinner.render();
+    if (!arg.disableDisplay) {
+        spinner.text = 'saving';
+        spinner.render();
+    }
 
     await new Promise(res => setTimeout(res, 100));
 
     const saveResult = await saveFile(options.ouput, splitResult);
     if (saveResult.success) {
-        spinner.succeed(`success!`)
+        if (!arg.disableDisplay)
+            spinner.succeed(`success!`)
         console.log(`${path.join(path.normalize(process.cwd()), options.ouput)}`);
     } else {
-        spinner.fail('failed!')
+        if (!arg.disableDisplay)
+            spinner.fail('failed!')
         console.log(`${saveResult.msg}`);
+        return false;
     }
 
-
-})();
+    return true;
+}
