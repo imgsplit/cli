@@ -1,5 +1,5 @@
 import {mkdirSync, writeFile} from "fs";
-import {ouputDataType} from "@imgsplit/core";
+import {OuputDataType} from "@imgsplit/core";
 import path from "upath";
 
 export type resultType = {
@@ -7,7 +7,7 @@ export type resultType = {
     msg?: string
 }
 
-export async function saveFile(distPath: string, result: ouputDataType[]): Promise<resultType> {
+export async function saveFile(distPath: string, result: OuputDataType[]): Promise<resultType> {
     const dir = distPath;
     // console.debug(`dir: ${dir}`)
     mkdirSync(dir, {
