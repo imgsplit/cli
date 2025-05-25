@@ -1,4 +1,4 @@
-import {mkdirSync, writeFile} from "fs";
+import {mkdirSync, writeFile} from "node:fs";
 import {OuputDataType} from "@imgsplit/core";
 import path from "upath";
 
