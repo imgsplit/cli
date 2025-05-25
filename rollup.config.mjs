@@ -14,13 +14,23 @@ const options = {
             chunkFileNames: `[name].js`,
         }
     ],
+    external: [
+        'yargs',
+        '@imgsplit/core',
+        'upath',
+        'ora',
+        'yargs/helpers',
+        'node:fs'
+    ],
     plugins: [
         typescript({
             rootDir: "./src",
             declaration: false,
         }),
         commonjs(),
-        // terser(),
+        terser({
+            sourceMap:true
+        }),
     ],
 
 }
