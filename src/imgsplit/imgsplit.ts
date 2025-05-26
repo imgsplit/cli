@@ -1,6 +1,5 @@
 import yargs from 'yargs';
-import {imgsplit, ItemOption, ImgSplitOption} from "@imgsplit/core";
-import {hideBin} from "yargs/helpers";
+import {imgsplit, ImgSplitOption, ItemOption} from "@imgsplit/core";
 import path from 'upath';
 import {existsSync, readFileSync} from "node:fs";
 import {saveFile} from "../utils/fileutil";
