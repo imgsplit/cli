@@ -20,6 +20,7 @@ const options = {
         'upath',
         'ora',
         'yargs/helpers',
+        'file-type',
         'node:fs'
     ],
     plugins: [
