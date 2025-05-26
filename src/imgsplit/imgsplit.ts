@@ -2,10 +2,11 @@ import yargs from 'yargs';
 import {imgsplit, ItemOption, ImgSplitOption} from "@imgsplit/core";
 import {hideBin} from "yargs/helpers";
 import path from 'upath';
-import {existsSync} from "node:fs";
+import {existsSync, readFileSync} from "node:fs";
 import {saveFile} from "../utils/fileutil";
 import ora from 'ora';
 import {welcome} from "../utils/logutil";
+import {fileTypeFromBuffer} from "file-type";
 
 export type SplitOption = Partial<ImgSplitOption> & {
     input?: string
@@ -117,6 +118,15 @@ export async function main(args: string | string[]): Promise<boolean> {
         options.ouput = path.joinSafe(path.dirname(options.input), `${inputFileName}-splitted/`)
     }
 
+    const parsed = path.parse(options.ouput);
+
+    if (!parsed.ext || !parsed.name) {
+        const buffer = readFileSync(options.input);
+        const typeResult = await fileTypeFromBuffer(buffer);
+
+        options.ouput = path.joinSafe(options.ouput, `#.${typeResult.ext}`);
+    }
+
     if (!arg.disableDisplay)
         spinner.start('splitting');
 
@@ -128,13 +138,11 @@ export async function main(args: string | string[]): Promise<boolean> {
         spinner.render();
     }
 
-    await new Promise(res => setTimeout(res, 100));
-
     const saveResult = await saveFile(options.ouput, splitResult);
     if (saveResult.success) {
         if (!arg.disableDisplay) {
             spinner.succeed(`success!`)
-            console.log(`${path.join(path.normalize(process.cwd()), options.ouput)}`);
+            console.log(`${path.join(path.normalize(process.cwd()), path.dirname(options.ouput))}`);
         }
     } else {
         if (!arg.disableDisplay) {

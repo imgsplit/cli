@@ -8,14 +8,15 @@ export type resultType = {
 }
 
 export async function saveFile(distPath: string, result: OuputDataType[]): Promise<resultType> {
-    const dir = distPath;
+    const dir = path.dirname(distPath);
     // console.debug(`dir: ${dir}`)
     mkdirSync(dir, {
         recursive: true
     });
+    const ext = path.extname(distPath);
 
     for (let i = 0; i < result.length; i++) {
-        const filename = path.join(dir, i + '.png');
+        const filename = path.join(dir, i + ext);
         // console.debug(filename)
         const r = await save(filename, result[i].buffer);
         if (!r.success) return r;
