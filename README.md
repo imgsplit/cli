@@ -44,22 +44,33 @@ Example coordinates:
 ## Coordinate Format:
 The --item flag supports three parameter patterns:
 
-### 1. Vertical Split (Y-axis)
+### 1. Vertical Splits with Dynamic Height
 `--item <y>`
-
-- Splits the image vertically at the specified y coordinate.
-- Example: --item 300 → Splits from the top (Y=0) to Y=300.
+- First to second-last y: Height = `next_y - current_y`
+- Last y: Height = `total_image_height - current_y`
+- Example:  
+  For an image with height 4096px:
+  1. Region 1:
+     - Start: Y=512
+     - Height: 1024 - 512 = 512px
+     - Covers Y=512 to Y=1024
+  2. Region 2:
+     - Start: Y=1024
+     - Height: 4096 - 1024 = 3072px
+     - Covers Y=1024 to Y=4096
 ### 2. Height-Based Region
 `--item <y>,<height>`
 
 - Defines a region starting at y with the specified height (full width used).
-- Example: --item 200,100 → Creates a 100px-tall region starting at Y=200.
+- Example: `--item 200,100` → Creates a 100px-tall region starting at Y=200.
+
 ### 3. Custom Rectangle
 `--item <x>,<y>,<width>,<height>`
 
 - Defines a rectangle region with explicit coordinates.
-- Example: --item 50,100,400,300 → Starts at (50,100), creates a 400x300 region.
+- Example: `--item 50,100,400,300` → Starts at (50,100), creates a 400x300 region.
 ---
+
 ## Key Notes:
 
 - Default output directory: `./${imgname}-splitted/` (automatically created if missing)
