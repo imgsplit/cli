@@ -49,8 +49,10 @@ The --item flag supports three parameter patterns:
 - First to second-last y: Height = `next_y - current_y`
 - Last y: Height = `total_image_height - current_y`
 - Example:  
-  For an image with height 4096px:
-  1. Region 1:
+  For an image with height 4096px:  
+  `imgsplit ./xxx.png --item 512 --item 1024`
+
+    1. Region 1:
      - Start: Y=512
      - Height: 1024 - 512 = 512px
      - Covers Y=512 to Y=1024
