@@ -51,8 +51,8 @@ The --item flag supports three parameter patterns:
 - Example:  
   For an image with height 4096px:  
   `imgsplit ./xxx.png --item 512 --item 1024`
-
-    1. Region 1:
+  
+  1. Region 1:
      - Start: Y=512
      - Height: 1024 - 512 = 512px
      - Covers Y=512 to Y=1024
