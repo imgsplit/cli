@@ -23,7 +23,7 @@ const parser = yargs()
         o: {type: 'string', alias: 'output', description: 'dist path'},
         h: {type: 'number', alias: 'height', description: 'by height'},
         c: {type: 'number', alias: 'count', description: 'by count'},
-        m: {type: 'array', alias: 'items'},
+        m: {type: 'array', alias: 'item'},
         'disable-display': {type: 'boolean'},
     })
     .demandCommand(1);
@@ -51,10 +51,10 @@ export async function main(args: string | string[]): Promise<boolean> {
         options.items = [];
         for (let i = 0; i < arg.m.length; i++) {
             const itemObj: Partial<ItemOption> = {};
-            const itemStr = (arg.m[i] as string);
+            const itemStr = (arg.m[i] as string).trim();
             let item: string[];
-            if (/[,，]/ig.test(itemStr))
-                item = itemStr.split(/[,，]/ig);
+            if (/\s/ig.test(itemStr))
+                item = itemStr.split(/\s/ig);
             else
                 item = [itemStr];
 
@@ -141,7 +141,7 @@ export async function main(args: string | string[]): Promise<boolean> {
     if (saveResult.success) {
         if (!arg.disableDisplay) {
             spinner.succeed(`success!`)
-            console.log(`${path.join(path.normalize(process.cwd()), path.dirname(options.ouput))}`);
+            console.log('output dir:    '+path.resolve(process.cwd(), path.dirname(options.ouput)));
         }
     } else {
         if (!arg.disableDisplay) {
