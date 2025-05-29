@@ -127,12 +127,13 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.25.4.tgz#0b17ec8a70b2385827d52314c1253160a0b9bacc"
   integrity sha512-nOT2vZNw6hJ+z43oP1SPea/G/6AbN6X+bGNhNuq8NtRHy4wsMhw765IKLNmnjek7GvjWBYQ8Q5VBoYTFg9y1UQ==
 
-"@imgsplit/core@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@imgsplit/core/-/core-0.1.1.tgz#1750df17f40c08fd2e1f1409ebe02a02bdbf4795"
-  integrity sha512-axo/JMsos85KMxnZGcSNzMAy9iOZniYHSUcInQT5Hmlb0v33R1LnYUgp+kbw1MaFqNuzPmXQ29K+RMUh0ynsJw==
+"@imgsplit/core@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@imgsplit/core/-/core-0.1.2.tgz#0765b078cea880649114275eda67d900174df1c3"
+  integrity sha512-7TV78iQJWMunolSpW8FkRknX+F3AjLuiAg/jxkIZ8LuZmQX+hbdP8EX1GsXahzTKI1Bi7O5cJF0A64JNMir2xA==
   dependencies:
     canvas "^3.1.0"
+    file-type "^21.0.0"
 
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
