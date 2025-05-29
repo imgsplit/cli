@@ -51,10 +51,10 @@ export async function main(args: string | string[]): Promise<boolean> {
         options.items = [];
         for (let i = 0; i < arg.m.length; i++) {
             const itemObj: Partial<ItemOption> = {};
-            const itemStr = (arg.m[i] as string).trim();
+            const itemStr = arg.m[i] as string;
             let item: string[];
             if (/\s/ig.test(itemStr))
-                item = itemStr.split(/\s/ig);
+                item = itemStr.trim().split(/\s/ig);
             else
                 item = [itemStr];
 
