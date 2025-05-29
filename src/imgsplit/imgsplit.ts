@@ -129,6 +129,8 @@ export async function main(args: string | string[]): Promise<boolean> {
     if (!arg.disableDisplay)
         spinner.start('splitting');
 
+    options.forceOuputDataURL = false;
+
     options.src = options.input;
     const splitResult = await imgsplit(options as ImgSplitOption);
 
@@ -141,7 +143,7 @@ export async function main(args: string | string[]): Promise<boolean> {
     if (saveResult.success) {
         if (!arg.disableDisplay) {
             spinner.succeed(`success!`)
-            console.log('output dir:    '+path.resolve(process.cwd(), path.dirname(options.ouput)));
+            console.log('output dir:    ' + path.resolve(process.cwd(), path.dirname(options.ouput)));
         }
     } else {
         if (!arg.disableDisplay) {
