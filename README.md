@@ -9,6 +9,8 @@
     </div>
 </p>
 
+[简体中文](./README.zh-CN.md)
+
 ## Install
 ```bash [npm]
 npm install -g @imgsplit/cli
@@ -42,7 +44,7 @@ Example coordinates:
 
 
 ## Coordinate Format:
-The --item flag supports three parameter patterns:
+The `--item` flag supports three parameter patterns:
 
 ### 1. Vertical Splits with Dynamic Height
 `--item <y>`
@@ -76,5 +78,5 @@ The --item flag supports three parameter patterns:
 ## Key Notes:
 
 - Default output directory: `./${imgname}-splitted/` (automatically created if missing)
-- Supported image formats: PNG, JPG. (Other formats will be automatically saved as PNG)
+- Supported image formats: `PNG`, `JPG`. (Other formats will be automatically saved as PNG)
 - Use --help to see all options:`imgsplit --help`
